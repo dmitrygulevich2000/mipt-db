@@ -10,7 +10,7 @@
 
 ### Схема, ограничения
 ![erd](img/erd.drawio.png)  
-\* все PK, FK - unique not null
+\* все PK - unique not null, все FK - not null
 
 ### Сценарии использования
 
