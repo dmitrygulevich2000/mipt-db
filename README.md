@@ -36,3 +36,19 @@
 * `tariff(started_at)` - чтобы быстро получать актуальный тариф.
 * `order(start_at, end_at)` - чтобы быстро искать комнаты, свободные в интервале `[x, y]`.
 * `room(room_number), orders(room_number)` - чтобы быстрее искать информацию по конкретной комнате. (TODO убедиться что при join'e используется)
+
+### ДЗ 3
+
+```bash
+# run postgres container
+docker run -d --name mipt-db-postgres -v $(pwd)/data/data:/var/lib/postgresql/data -p 20523:5432 -e POSTGRES_PASSWORD=1234 postgres
+
+# connect via psql
+docker exec -it mipt-db-postgres psql -U postgres
+```
+
+![psql](img/psql.png)
+
+||||
+|---|---|---|
+|![dbeaver1](img/dbeaver_conn.png)|![dbeaver2](img/dbeaver_console.png)|![dbeaver3](img/dbeaver_table.png)|
