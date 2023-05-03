@@ -41,10 +41,13 @@
 
 ```bash
 # run postgres container
-docker run -d --name mipt-db-postgres -v $(pwd)/data/data:/var/lib/postgresql/data -p 20523:5432 -e POSTGRES_PASSWORD=1234 postgres
+docker run -d --name mipt-db-postgres -v $(pwd)/data/data:/var/lib/postgresql/data -v $(pwd)/data/ssd:/ssd -p 20523:5432 -e POSTGRES_PASSWORD=verystrongadminpassword postgres
+
+# enable usage of directory by tablespace
+docker exec mipt-db-postgres chown postgres /ssd
 
 # connect via psql
-docker exec -it mipt-db-postgres psql -U postgres
+docker exec -it mipt-db-postgres psql -U postgres -d postgres
 ```
 
 ![psql](img/psql.png)
@@ -52,3 +55,19 @@ docker exec -it mipt-db-postgres psql -U postgres
 ||||
 |---|---|---|
 |![dbeaver1](img/dbeaver_conn.png)|![dbeaver2](img/dbeaver_console.png)|![dbeaver3](img/dbeaver_table.png)|
+
+### ДЗ 4
+
+Скрипт [ddl_admin.sql](Scripts/ddl_admin.sql) выполняется как бы DBA, который подключился как супер-юзер. В нём создаются роли, база данных табличное пространство.
+
+Скрипт [ddl_dev.sql](Scripts/ddl_dev.sql) выполняется с ограниченными правами. Здесь производится создание схем и таблиц.
+
+В скриптах есть комментарии :)
+
+### ДЗ 5
+
+Скрипт [dml.sql](Scripts/ddl_dev.sql) снова выполняется ограниченными правами. Он добавляет примеры данных в таблицы и делает запросы.
+
+Утилиту `COPY` можно применять для передачи значительного объема данных по API. Например, если происходит взаимодействие поставщика с интернет-магазином или отеля с агрегатором отелей.  
+Также, она кажется полезной при миграциях.
+
